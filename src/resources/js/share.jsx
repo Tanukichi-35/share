@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import '../css/share.css'
-import axios from 'axios'
 import Home from '../components/js/home'
 import Comment from '../components/js/comment'
 import Register from '../components/js/register'
@@ -11,15 +10,16 @@ import {
   Route,
 } from "react-router-dom";
 
-const Share = () => {
+const Share = () =>
+{
   return (
       <div className='div__main'>
         <Router>
             <Routes>
-              <Route path="/" Component={Home}/>
-              <Route path="/comment/:id" Component={Comment}/>
-              <Route path="/login" Component={Login}/>
-              <Route path="/register" Component={Register}/>
+              <Route path="/" element={<Home />}/>
+              <Route path="/comment/:id" element={<Comment />}/>
+              <Route path="/login" element={<Login />}/>
+              <Route path="/register" element={<Register />} />
             </Routes>
         </Router>
       </div>

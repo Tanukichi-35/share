@@ -41,4 +41,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Messageモデルとの紐づけ
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message');
+    }
+
+    // Likeモデルとの紐づけ
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Like');
+    }
+
+    // Commentモデルとの紐づけ
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
 }

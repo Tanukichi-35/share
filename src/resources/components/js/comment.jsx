@@ -13,7 +13,7 @@ const Comment = memo(() => {
         <h1 className='h1__home'>コメント</h1>
         <div className='div__share'>
           <div className="div__share-header">
-            <h2 className="h2__share-title">test</h2>
+            <h2 className="h2__share-user">test</h2>
             <div className="div__menu-like">
               <img className='img__like-menu menu-icon' src={heart} alt="" />
               <p className="p__like-count">1</p>

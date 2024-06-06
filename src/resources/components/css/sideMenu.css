@@ -2,9 +2,29 @@
   grid-row: 1 / 3;
   grid-column: 1 / 2;
 
-.img__logo {
-    width: 100px;
-    margin-bottom: 15px;
+  .img__logo {
+      width: 100px;
+      margin-bottom: 15px;
+  }
+
+  .side-menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .side-menu-icon {
+      width: 25px;
+      margin-right: 15px;
+    }
+
+    .side-menu-text {
+      margin: 0;
+    }
+  }
+
+  .p__logout-menu{
+    cursor: pointer;
   }
 
   .div__share-form {
