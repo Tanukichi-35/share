@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import '../css/share.css'
-import Home from '../components/js/home'
-import Comment from '../components/js/comment'
-import Register from '../components/js/register'
-import Login from '../components/js/login'
+import Home from '../components/js/Home'
+import Comment from '../components/js/Comment'
+import Register from '../components/js/Register'
+import Login from '../components/js/Login'
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,8 +18,8 @@ const Share = () =>
             <Routes>
               <Route path="/" element={<Home />}/>
               <Route path="/comment/:id" element={<Comment />}/>
-              <Route path="/login" element={<Login />}/>
               <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />}/>
             </Routes>
         </Router>
       </div>

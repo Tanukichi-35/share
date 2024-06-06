@@ -1,11 +1,12 @@
 import { useEffect, useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import { login } from '../../Providers/AuthProvider';
 import '../css/login.css'
-import Header from './header'
+import Header from './Header'
 
 const Login = memo(() =>
 {
+  // const {login} = useContext(AuthContext);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate();
@@ -19,33 +20,20 @@ const Login = memo(() =>
   }
 
   const onClickLogin = () => {
-    axios.get('http://localhost/sanctum/csrf-cookie').then(response => {
-      console.log(response);
-      axios.post("http://localhost/api/login", {
-          email: email,
-          password: password,
-        })
-        .then((response) => {
-          console.log(response);
-          navigate('/');
-        })
-        .catch((error) => {
-          console.log(email,password);
-          console.log(error);
-        });
-    });
-
-    // http.get('/sanctum/csrf-cookie').then((res) => {
-    //   http.post("http://localhost:80/api/login", {
-    //     email: email,
-    //     password: password,
-    //   })
+    const response = login(email, password, navigate);
+    console.log(response);
+    // axios.get('http://localhost/sanctum/csrf-cookie').then(response => {
+    //   console.log(response);
+    //   axios.post("http://localhost/api/login", {
+    //       email: email,
+    //       password: password,
+    //     })
     //     .then((response) => {
     //       console.log(response);
     //       navigate('/');
     //     })
     //     .catch((error) => {
-    //       console.log(email, password);
+    //       console.log(email,password);
     //       console.log(error);
     //     });
     // });

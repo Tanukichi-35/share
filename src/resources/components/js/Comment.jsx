@@ -1,9 +1,9 @@
 import { useEffect, useState, memo } from 'react'
 import '../css/comment.css'
-import heart from '../img/heart.png';
-import heart_on from '../img/heart_on.png';
-import cross from '../img/cross.png';
-import SideMenu from './sideMenu';
+import SideMenu from './SideMenu';
+import heartImg from '../img/heart.png';
+import heartOnImg from '../img/heart_on.png';
+import crossImg from '../img/cross.png';
 
 const Comment = memo(() => {
   return (
@@ -15,10 +15,10 @@ const Comment = memo(() => {
           <div className="div__share-header">
             <h2 className="h2__share-user">test</h2>
             <div className="div__menu-like">
-              <img className='img__like-menu menu-icon' src={heart} alt="" />
+              <img className='img__like-menu menu-icon' src={heartImg} alt="" />
               <p className="p__like-count">1</p>
             </div>
-            <img className='img__delete-menu menu-icon' src={cross} alt="" />
+            <img className='img__delete-menu menu-icon' src={crossImg} alt="" />
           </div>
           <p className="p__share-message">test message</p>
         </div>

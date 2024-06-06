@@ -1,11 +1,12 @@
 import { useEffect, useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import { register } from '../../Providers/AuthProvider';
 import '../css/register.css'
-import Header from './header';
+import Header from './Header';
 
 const Register = memo(() =>
 {
+  // const {register} = useContext(AuthContext);
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,21 +25,22 @@ const Register = memo(() =>
   }
 
   const onClickRegister = () => {
-    axios
-      .post("http://localhost/api/register", {
-        name: name,
-        email: email,
-        password: password,
-        password_confirmation: password,
-      })
-      .then((response) => {
-        console.log(response);
-        navigate('/login');
-      })
-      .catch((error) => {
-        console.log(email, password);
-        console.log(error);
-      });
+    register(name, email, password, navigate);
+    // axios
+    //   .post("http://localhost/api/register", {
+    //     name: name,
+    //     email: email,
+    //     password: password,
+    //     password_confirmation: password,
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //     navigate('/login');
+    //   })
+    //   .catch((error) => {
+    //     console.log(email, password);
+    //     console.log(error);
+    //   });
   }
 
   return (
