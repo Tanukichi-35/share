@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+// ページが見つからない場合はトップページにリダイレクト
+Route::fallback(static fn () => redirect()->to('/'));
