@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -27,7 +28,11 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        $item = Message::create($request->all());
+        $item = Message::create([
+            'user_id' => Auth::id(),
+            'text' => $request->text,
+        ]);
+        // $item = Message::create($request->all());
         return response()->json([
             'data' => $item
         ], 201);
@@ -40,10 +45,10 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        $item = Message::find($message);
-        if ($item) {
+        // $item = Message::find($message);
+        if ($message) {
             return response()->json([
-                'data' => $item
+                'data' => $message
             ], 200);
         } else {
             return response()->json([
@@ -87,6 +92,67 @@ class MessageController extends Controller
         if ($item) {
             return response()->json([
                 'message' => 'Deleted successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
+    }
+    /**
+     * get messages list.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $items = Message::all();
+        if ($items) {
+            foreach ($items as $item) {
+                $list[] = [
+                    'message' => $item,
+                    'user' => $item->user,
+                    'goods' => $item->goods,
+                    'good_flag' => $item->goods->where('user_id', Auth::id())->isNotEmpty(),
+                ];
+            }
+            return response()->json([
+                'data' => $list,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
+    }
+    /**
+     * get message detail.
+     *
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function details(Message $message)
+    {
+        // $item = Message::find($message);
+        if ($message) {
+            $comments = [];
+            if($message->comments){
+                foreach ($message->comments as $comment) {
+                    $comments[] = [
+                        'comment' => $comment,
+                        'user' => $comment->user,
+                    ];
+                }
+            }
+            $detail = [
+                'message' => $message,
+                'user' => $message->user,
+                'goods' => $message->goods,
+                'good_flag' => $message->goods->where('user_id', Auth::id())->isNotEmpty(),
+                'comments' => $comments,
+            ];
+            return response()->json([
+                'data' => $detail,
             ], 200);
         } else {
             return response()->json([

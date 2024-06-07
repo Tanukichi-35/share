@@ -1,11 +1,49 @@
-import { useEffect, useState, memo } from 'react'
+import { useEffect, useState, useContext, memo } from 'react'
+import { useParams, useNavigate } from 'react-router-dom';
+import { MessagesContext } from '../../Providers/MessagesProvider';
 import '../css/comment.css'
 import SideMenu from './SideMenu';
+import axios from 'axios'
 import heartImg from '../img/heart.png';
 import heartOnImg from '../img/heart_on.png';
 import crossImg from '../img/cross.png';
 
 const Comment = memo(() => {
+  const { messageDetails, loadMessageDetails, postComment, deleteMessage, addGood, removeGood } = useContext(MessagesContext);
+  const [commentText, setCommentText] = useState('')
+  const params = useParams();
+  const message_id = params.id;
+  const nav = useNavigate();
+
+  const onChangeCommentText = (event) => {
+    setCommentText(event.target.value)
+  }
+
+  // コメント投稿
+  const onClickComment = (message_id) => {
+    if (commentText === '') return
+
+    postComment(message_id, commentText);
+    setCommentText('');
+  }
+
+  // goodボタン
+  const onClickGood = (isGood, id) => {
+    if (isGood) {
+      removeGood(id, () => loadMessageDetails(message_id));
+    } else {
+      addGood(id, () => loadMessageDetails(message_id));
+    }
+  }
+
+  // messageの削除
+  const onClickDelete = (id) => {
+    deleteMessage(id, () => nav("/"));
+  }
+  
+  // idからmessageを取得する
+  useEffect(() => loadMessageDetails(message_id), []);
+
   return (
     <>
       <SideMenu/>
@@ -13,27 +51,31 @@ const Comment = memo(() => {
         <h1 className='h1__home'>コメント</h1>
         <div className='div__share'>
           <div className="div__share-header">
-            <h2 className="h2__share-user">test</h2>
-            <div className="div__menu-like">
-              <img className='img__like-menu menu-icon' src={heartImg} alt="" />
-              <p className="p__like-count">1</p>
+            <h2 className="h2__share-user">{messageDetails.userName}</h2>
+            <div className="div__menu-good">
+              <img className='img__good-menu menu-icon' src={messageDetails.isGood ? heartOnImg : heartImg} alt="" onClick={() => onClickGood(messageDetails.isGood, message_id)} />
+              <p className="p__good-count">{messageDetails.goodCount}</p>
             </div>
-            <img className='img__delete-menu menu-icon' src={crossImg} alt="" />
+            <img className='img__delete-menu menu-icon' src={crossImg} alt="" onClick={() => onClickDelete(message_id)}></img>
           </div>
-          <p className="p__share-message">test message</p>
+          <p className="p__share-message">{messageDetails.text}</p>
         </div>
-        <div className="div__comment">
+        <div className="div__comment-container">
           <div className="div__share-comment">
             <h3 className='h3__comment-title'>コメント</h3>
-            <div className="div__comment">
-              <p className="p__comment-user">test</p>
-              <p className="p__comment-text">test comment</p>
-            </div>
+              {messageDetails.comments.map((comment) => {
+                return (
+                <div key={comment.id} className="div__comment">
+                  <p className="p__comment-user">{comment.userName}</p>
+                  <p className="p__comment-text">{comment.text}</p>
+                </div>
+                )
+              })}
           </div>
           <div className="div__comment-form">
-            <textarea className='textarea__share-comment' name="commentText" id="" placeholder='他人がシェアした内容にコメントしてみよう'>
+            <textarea className='textarea__share-comment' name="commentText" id="" placeholder='他人がシェアした内容にコメントしてみよう' onChange={onChangeCommentText} value={commentText}>
             </textarea>
-            <button className='button__share-comment submit-button' type="button">コメントする</button>
+            <button className='button__share-comment submit-button' type="button" onClick={() => onClickComment(message_id)}>コメントする</button>
           </div>
         </div>
       </div>

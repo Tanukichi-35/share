@@ -48,10 +48,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Message');
     }
 
-    // Likeモデルとの紐づけ
-    public function likes()
+    // Goodモデルとの紐づけ
+    public function goods()
     {
-        return $this->hasMany('App\Models\Like');
+        return $this->hasMany('App\Models\Good');
     }
 
     // Commentモデルとの紐づけ

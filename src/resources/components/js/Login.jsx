@@ -4,12 +4,10 @@ import { login } from '../../Providers/AuthProvider';
 import '../css/login.css'
 import Header from './Header'
 
-const Login = memo(() =>
-{
-  // const {login} = useContext(AuthContext);
+const Login = memo(() => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate();
+  const nav = useNavigate();
   
   const onChangeEmail = (event) => {
     setEmail(event.target.value)
@@ -20,23 +18,7 @@ const Login = memo(() =>
   }
 
   const onClickLogin = () => {
-    const response = login(email, password, navigate);
-    console.log(response);
-    // axios.get('http://localhost/sanctum/csrf-cookie').then(response => {
-    //   console.log(response);
-    //   axios.post("http://localhost/api/login", {
-    //       email: email,
-    //       password: password,
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       navigate('/');
-    //     })
-    //     .catch((error) => {
-    //       console.log(email,password);
-    //       console.log(error);
-    //     });
-    // });
+    login(email, password, nav);
   }
 
   return (

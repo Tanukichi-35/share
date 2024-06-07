@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Like;
+use App\Models\Good;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class LikeController extends Controller
+class GoodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class LikeController extends Controller
      */
     public function index()
     {
-        $items = Like::all();
+        $items = Good::all();
         return response()->json([
             'data' => $items
         ], 200);
@@ -27,7 +28,11 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
-        $item = Like::create($request->all());
+        $item = Good::create([
+            'user_id' => Auth::id(),
+            'message_id' => $request->message_id,
+        ]);
+        // $item = Good::create($request->all());
         return response()->json([
             'data' => $item
         ], 201);
@@ -35,12 +40,12 @@ class LikeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Like  $like
+     * @param  \App\Models\Good  $good
      * @return \Illuminate\Http\Response
      */
-    public function show(Like $like)
+    public function show(Good $good)
     {
-        $item = Like::find($like);
+        $item = Good::find($good);
         if ($item) {
             return response()->json([
                 'data' => $item
@@ -55,14 +60,14 @@ class LikeController extends Controller
     //  * Update the specified resource in storage.
     //  *
     //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  \App\Models\Like  $message
+    //  * @param  \App\Models\Good  $message
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function update(Request $request, Like $like)
+    // public function update(Request $request, Good $good)
     // {
     //     $update = [
     //     ];
-    //     $item = Like::where('id', $like->id)->update($update);
+    //     $item = Good::where('id', $good->id)->update($update);
     //     if ($item) {
     //         return response()->json([
     //             'message' => 'Updated successfully',
@@ -76,12 +81,12 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Like  $like
+     * @param  int  $message_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+    public function destroy(int $message_id)
     {
-        $item = Like::where('id', $like->id)->delete();
+        $item = Good::where('message_id', $message_id)->Where('user_id', Auth::id())->delete();
         if ($item) {
             return response()->json([
                 'message' => 'Deleted successfully',

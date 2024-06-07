@@ -4,13 +4,11 @@ import { register } from '../../Providers/AuthProvider';
 import '../css/register.css'
 import Header from './Header';
 
-const Register = memo(() =>
-{
-  // const {register} = useContext(AuthContext);
+const Register = memo(() => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   const onChangeName = (event) => {
     setName(event.target.value)
@@ -25,22 +23,7 @@ const Register = memo(() =>
   }
 
   const onClickRegister = () => {
-    register(name, email, password, navigate);
-    // axios
-    //   .post("http://localhost/api/register", {
-    //     name: name,
-    //     email: email,
-    //     password: password,
-    //     password_confirmation: password,
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     navigate('/login');
-    //   })
-    //   .catch((error) => {
-    //     console.log(email, password);
-    //     console.log(error);
-    //   });
+    register(name, email, password, nav);
   }
 
   return (

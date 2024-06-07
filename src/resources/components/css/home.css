@@ -27,18 +27,18 @@
         margin-right: 15px;
       }
 
-      .div__menu-like{
+      .div__menu-good{
         display: flex;
         flex-direction: row;
         align-items: center;
         margin-right: 15px;
 
-        .p__like-count{
+        .p__good-count{
           margin: 0;
         }
       }
 
-      .img__like-menu{
+      .img__good-menu{
         margin-right: 8px;
       }
 

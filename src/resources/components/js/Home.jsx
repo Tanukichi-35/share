@@ -9,57 +9,26 @@ import heartOnImg from '../img/heart_on.png';
 import crossImg from '../img/cross.png';
 import detailImg from '../img/detail.png';
 
-const Home = memo(() =>
-{
-  const {messages, loadMessages, deleteMessage} = useContext(MessagesContext);
-  // const [messages, setMessages] = useState([])
-  const navigate = useNavigate();
+const Home = memo(() => {
+  const { messages, loadMessages, deleteMessage, addGood, removeGood } = useContext(MessagesContext);
+  const nav = useNavigate();
 
-  // const loadMessages = () => {
-  //   axios
-  //     .get("http://localhost/api/message")
-  //     .then((response) => {
-  //       console.log(response.data.data);
-  //       // console.log(messages);
-  //       setMessages(response.data.data);
-  //     })
-  //     .then(() => {
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       navigate('/login');
-  //     });
-  // }
-
-  // const getUserName = (user_id) => {
-  //   axios
-  //     .get(`http://localhost/api/user/${user_id}`)
-  //     .then((response) => {
-  //       console.log(response);
-  //       return response.data.name;
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-  // const getLikesCount = (message_id) => {
-  //   axios
-  //     .get(`http://localhost/api/like/${message_id}`)
-  //     .then((response) => {
-  //       console.log(response);
-  //       return response.data.count;
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-  const onClickDelete = (id) => {
-    deleteMessage(id);
+  // goodボタン
+  const onClickGood = (isGood, id) => {
+    if (isGood) {
+      removeGood(id, loadMessages);
+    } else {
+      addGood(id, loadMessages);
+    }
   }
 
-  useEffect(loadMessages,[]);
+  // messageの削除
+  const onClickDelete = (id) => {
+    deleteMessage(id, loadMessages);
+  }
+
+  // messageを取得
+  useEffect(() => loadMessages(nav),[]);
   
   return (
     <>
@@ -67,16 +36,16 @@ const Home = memo(() =>
       <div className='div__home'>
         <h1 className='h1__home'>ホーム</h1>
         {messages.map((message) => {
-          // console.log(message);
           return (
             <div key={message.id} className='div__share'>
               <div className="div__share-header">
-                {/* <h2 className="h2__share-user">{getUserName(message.user_id)}</h2> */}
-                <h2 className="h2__share-user">test</h2>
-                <div className="div__menu-like">
-                  <img className='img__like-menu menu-icon' src={heartImg} alt="" />
-                  {/* <p className="p__like-count">{getLikesCount(message.id)}</p> */}
-                  <p className="p__like-count">0</p>
+                <h2 className="h2__share-user">{message.userName}</h2>
+                {/* <h2 className="h2__share-user">test</h2> */}
+                <div className="div__menu-good">
+                  <p>{message.isGood}</p>
+                  <img className='img__good-menu menu-icon' src={message.isGood ? heartOnImg : heartImg} alt="" onClick={() => onClickGood(message.isGood, message.id)} />
+                  <p className="p__good-count">{message.goodCount}</p>
+                  {/* <p className="p__good-count">0</p> */}
                 </div>
                 <img className='img__delete-menu menu-icon' src={crossImg} alt="" onClick={() => onClickDelete(message.id)}></img>
                 <Link to={`/comment/${message.id}`}>

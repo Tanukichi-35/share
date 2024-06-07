@@ -26,18 +26,18 @@
         margin-right: 15px;
       }
 
-      .div__menu-like{
+      .div__menu-good{
         display: flex;
         flex-direction: row;
         align-items: center;
         margin-right: 15px;
 
-        .p__like-count{
+        .p__good-count{
           margin: 0;
         }
       }
 
-      .img__like-menu{
+      .img__good-menu{
         margin-right: 8px;
       }
 
@@ -53,7 +53,7 @@
     }
   }
 
-  .div__comment{
+  .div__comment-container{
     
     .div__share-comment {
         border: solid 1px #fff;
@@ -69,6 +69,7 @@
 
       .div__comment {
         padding: 5px 10px;
+        border-bottom: solid 1px #fff;
 
         .p__comment-user {
           margin: 0;

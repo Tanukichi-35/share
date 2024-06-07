@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\LikeController;
+use App\Http\Controllers\GoodController;
 use App\Http\Controllers\CommentController;
 
 /*
@@ -22,11 +22,18 @@ use App\Http\Controllers\CommentController;
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/user', UserController::class);
     Route::apiResource('/message', MessageController::class);
-    Route::apiResource('/like', LikeController::class);
+    Route::apiResource('/good', GoodController::class);
     Route::apiResource('/comment', CommentController::class);
 
-    Route::get('authUser', function () {
+    Route::get('/authUser', function () {
         return Auth::user();
     });
-});
 
+    Route::get('/messageList', [
+        MessageController::class, 'list'
+    ]);
+
+    Route::get('/messageDetails/{message}', [
+        MessageController::class, 'details'
+    ]);
+});

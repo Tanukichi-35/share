@@ -11,23 +11,14 @@ import logoutImg from '../img/logout.png';
 const SideMenu = memo(() => {
   const {postMessage} = useContext(MessagesContext);
   const [shareText, setShareText] = useState('')
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   const onChangeShareText = (event) => {
     setShareText(event.target.value)
   }
 
   const onClickLogout = () => {
-    logout(navigate);
-    // axios
-    //   .post("http://localhost/api/logout")
-    //   .then((response) => {
-    //     console.log(response);
-    //     navigate('/login');
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    logout(nav);
   }
 
   const onClickShare = () => {
@@ -35,27 +26,6 @@ const SideMenu = memo(() => {
 
     postMessage(shareText);
     setShareText('');
-
-    // axios
-    //   .get("http://localhost/api/authUser")
-    //   .then((response) => {
-    //     console.log(response);
-    //     const authUser = response.data;
-    //     axios
-    //       .post("http://localhost/api/message", {
-    //         user_id: authUser.id,
-    //         text: shareText,
-    //       })
-    //       .then((response) => {
-    //         console.log(response);
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   }
 
   return (
