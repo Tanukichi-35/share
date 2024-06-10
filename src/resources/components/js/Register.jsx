@@ -44,17 +44,23 @@ const Register = memo(() => {
       });
   }
 
+  const onKeyDownSubmit = (event) => {
+    if (event.key === 'Enter') {
+      onClickLogin();
+    }
+  }
+
   return (
     <>
       <Header/>
       <div className='div__register'>
         <div className="div__register-form">
           <h2 className="h2__register-title">新規登録</h2>
-          <input type="text" name="name" className="input__name form-input" placeholder='ユーザーネーム' onChange={onChangeName} />
+          <input type="text" name="name" className="input__name form-input" placeholder='ユーザーネーム' onChange={onChangeName} onKeyDown={onKeyDownSubmit}/>
           <ErrorMessage isError={errorMessages.name != null} messages={errorMessages.name} />
-          <input type="text" name="email" className="input__email form-input" placeholder='メールアドレス' onChange={onChangeEmail}/>
+          <input type="text" name="email" className="input__email form-input" placeholder='メールアドレス' onChange={onChangeEmail} onKeyDown={onKeyDownSubmit}/>
           <ErrorMessage isError={errorMessages.email != null} messages={errorMessages.email} />
-          <input type="password" name="password" className="input__password form-input" placeholder='パスワード' onChange={onChangePassword}/>
+          <input type="password" name="password" className="input__password form-input" placeholder='パスワード' onChange={onChangePassword} onKeyDown={onKeyDownSubmit}/>
           <ErrorMessage isError={errorMessages.password != null} messages={errorMessages.password} />
           <button type="button" className='button__register submit-button' onClick={onClickRegister}>新規登録</button>
         </div>

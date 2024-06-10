@@ -38,15 +38,21 @@ const Login = memo(() => {
       });
   }
 
+  const onKeyDownSubmit = (event) => {
+    if (event.key === 'Enter') {
+      onClickLogin();
+    }
+  }
+
   return (
     <>
       <Header/>
       <div className='div__login'>
         <div className="div__login-form">
           <h2 className="h2__login-title">ログイン</h2>
-          <input type="text" name="email" className="input__email form-input" placeholder='メールアドレス' onChange={onChangeEmail}/>
+          <input type="text" name="email" className="input__email form-input" placeholder='メールアドレス' onChange={onChangeEmail} onKeyDown={onKeyDownSubmit}/>
           <ErrorMessage isError={errorMessages.email != null} messages={errorMessages.email} />
-          <input type="password" name="password" className="input__password form-input" placeholder='パスワード' onChange={onChangePassword}/>
+          <input type="password" name="password" className="input__password form-input" placeholder='パスワード' onChange={onChangePassword} onKeyDown={onKeyDownSubmit}/>
           <ErrorMessage isError={errorMessages.password != null} messages={errorMessages.password} />
           <button type="button" className='button__login submit-button' onClick={onClickLogin}>ログイン</button>
         </div>
