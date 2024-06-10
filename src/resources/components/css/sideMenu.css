@@ -57,6 +57,8 @@
 
 @media screen and (max-width : 768px) {
   .div__side-menu{
+    margin-bottom: 20px;
+
     .div__menu-container {
       display: flex;
       flex-direction: row;
