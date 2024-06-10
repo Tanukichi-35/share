@@ -89,6 +89,9 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
+        // 紐づくコメントといいねを先に削除
+        $message->comments()->delete();
+        $message->goods()->delete();
         $item = Message::where('id', $message->id)->delete();
         if ($item) {
             return response()->json([
