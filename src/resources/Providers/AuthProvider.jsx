@@ -11,7 +11,6 @@ export const register = async(name, email, password, nav) => {
     .then((response) => {
       console.log(response);
       nav('/login');
-      return response;
     })
     .catch((error) => {
       console.log(email, password);
@@ -32,6 +31,7 @@ export const login = async(email, password, nav) => {
           password: password,
         })
         .then((response) => {
+          console.log(email, password);
           console.log(response);
           nav('/');
         })

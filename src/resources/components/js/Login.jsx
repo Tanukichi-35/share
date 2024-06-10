@@ -25,8 +25,16 @@ const Login = memo(() => {
   const onClickLogin = () => {
     login(email, password, nav)
       .then((errors) => {
-        if (errors != null)
+        console.log(errors);
+        if (errors != null) {
           setErrorMessages(errors);
+        }
+        else {
+          setErrorMessages({
+            email: [],
+            password: []
+          });
+        }
       });
   }
 

@@ -31,8 +31,16 @@ const Register = memo(() => {
   const onClickRegister = () => {
     register(name, email, password, nav)
       .then((errors) => {
-        if (errors != null)
+        if (errors != null) {
           setErrorMessages(errors);
+        }
+        else {
+          setErrorMessages({
+            name: [],
+            email: [],
+            password: []
+          });
+        }
       });
   }
 
