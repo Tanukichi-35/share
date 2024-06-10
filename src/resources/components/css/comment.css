@@ -95,6 +95,7 @@
         background-color: transparent;
         border-radius: 10px;
         resize: none;
+        margin-bottom: 10px;
       }
 
       .button__share-comment {

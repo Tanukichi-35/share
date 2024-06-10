@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\MessageRequest;
 
 class MessageController extends Controller
 {
@@ -26,7 +27,7 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MessageRequest $request)
     {
         $item = Message::create([
             'user_id' => Auth::id(),
@@ -63,7 +64,7 @@ class MessageController extends Controller
      * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Message $message)
+    public function update(MessageRequest $request, Message $message)
     {
         $update = [
             'text' => $request->text,

@@ -13,11 +13,6 @@ class Good extends Model
         'message_id',
     ];
 
-    public static $rules = array(
-        'user_id' => 'required',
-        'message_id' => 'required'
-    );
-
     // Userモデルとの紐づけ
     public function user()
     {

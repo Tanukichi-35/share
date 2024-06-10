@@ -16,12 +16,6 @@ class Comment extends Model
         'text',
     ];
 
-    public static $rules = array(
-        'user_id' => 'required',
-        'message_id' => 'required',
-        'text' => 'required'
-    );
-
     // Userモデルとの紐づけ
     public function user()
     {

@@ -7,10 +7,14 @@ import axios from 'axios'
 import logoImg from '../img/logo.png';
 import homeImg from '../img/home.png';
 import logoutImg from '../img/logout.png';
+import ErrorMessage from './ErrorMessage';
 
 const SideMenu = memo(() => {
   const {postMessage} = useContext(MessagesContext);
   const [shareText, setShareText] = useState('')
+  const [errorMessages, setErrorMessages] = useState({
+    text: []
+  })
   const nav = useNavigate();
 
   const onChangeShareText = (event) => {
@@ -22,10 +26,16 @@ const SideMenu = memo(() => {
   }
 
   const onClickShare = () => {
-    if (shareText === '') return
-
-    postMessage(shareText);
-    setShareText('');
+    postMessage(shareText)
+      .then((errors) => {
+        if (errors != null) {
+          setErrorMessages(errors);
+        }
+        else {
+          setErrorMessages({text:[]});
+          setShareText('');
+        }
+      });
   }
 
   return (
@@ -47,6 +57,7 @@ const SideMenu = memo(() => {
         <p className='p__share-form-header'>シェア</p>
         <textarea className='textarea__share-form' name="shareText" id="" placeholder='自分の思いや考えを皆とシェアしよう' onChange={onChangeShareText} value={shareText}>
         </textarea>
+        <ErrorMessage isError={errorMessages.text != null} messages={errorMessages.text} />
         <button className='button__share-form submit-button' type="button" onClick={onClickShare}>シェアする</button>
       </div>
     </div>

@@ -37,9 +37,8 @@ export const MessagesProvider = ({ children }) => {
   }
 
   // メッセージの投稿
-  const postMessage = (text) => {
-    console.log(text);
-    axios
+  const postMessage = async(text) => {
+    const errors = await axios
       .post("http://localhost/api/message", {
         text: text,
       })
@@ -49,7 +48,10 @@ export const MessagesProvider = ({ children }) => {
       })
       .catch((error) => {
         console.log(error);
+        return error.response.data.errors;
       });
+
+    return errors;
   }
 
   // メッセージを削除
@@ -93,8 +95,8 @@ export const MessagesProvider = ({ children }) => {
   }
   
   // コメントの投稿
-  const postComment = (message_id, text) => {
-    axios
+  const postComment = async(message_id, text) => {
+    const errors = await axios
       .post("http://localhost/api/comment", {
         message_id: message_id,
         text: text,
@@ -105,8 +107,11 @@ export const MessagesProvider = ({ children }) => {
       })
       .catch((error) => {
         console.log(error);
+        return error.response.data.errors;
       });
-  }
+ 
+    return errors;
+ }
   
   // いいねの追加
   const addGood = (message_id, reload) => {

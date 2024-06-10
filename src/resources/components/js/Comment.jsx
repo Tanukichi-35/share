@@ -7,10 +7,14 @@ import axios from 'axios'
 import heartImg from '../img/heart.png';
 import heartOnImg from '../img/heart_on.png';
 import crossImg from '../img/cross.png';
+import ErrorMessage from './ErrorMessage';
 
 const Comment = memo(() => {
   const { messageDetails, loadMessageDetails, postComment, deleteMessage, addGood, removeGood } = useContext(MessagesContext);
   const [commentText, setCommentText] = useState('')
+  const [errorMessages, setErrorMessages] = useState({
+    text: []
+  })
   const params = useParams();
   const message_id = params.id;
   const nav = useNavigate();
@@ -21,10 +25,21 @@ const Comment = memo(() => {
 
   // コメント投稿
   const onClickComment = (message_id) => {
-    if (commentText === '') return
+    // if (commentText === '') return
 
-    postComment(message_id, commentText);
-    setCommentText('');
+    // postComment(message_id, commentText);
+    // setCommentText('');
+
+    postComment(message_id, commentText)
+      .then((errors) => {
+        if (errors != null) {
+          setErrorMessages(errors);
+        }
+        else {
+          setErrorMessages({text:[]});
+          setCommentText('');
+        }
+      });
   }
 
   // goodボタン
@@ -75,6 +90,7 @@ const Comment = memo(() => {
           <div className="div__comment-form">
             <textarea className='textarea__share-comment' name="commentText" id="" placeholder='他人がシェアした内容にコメントしてみよう' onChange={onChangeCommentText} value={commentText}>
             </textarea>
+            <ErrorMessage isError={errorMessages.text != null} messages={errorMessages.text} />
             <button className='button__share-comment submit-button' type="button" onClick={() => onClickComment(message_id)}>コメントする</button>
           </div>
         </div>
