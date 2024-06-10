@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext, memo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import { MessagesContext } from '../../Providers/MessagesProvider';
+import { ShareMessagesContext } from '../../Providers/ShareMessagesProvider';
 import '../css/comment.css'
 import SideMenu from './SideMenu';
 import axios from 'axios'
@@ -10,7 +10,7 @@ import crossImg from '../img/cross.png';
 import ErrorMessage from './ErrorMessage';
 
 const Comment = memo(() => {
-  const { messageDetails, loadMessageDetails, postComment, deleteMessage, addGood, removeGood } = useContext(MessagesContext);
+  const { messageDetails, loadMessageDetails, postComment, deleteMessage, addGood, removeGood } = useContext(ShareMessagesContext);
   const [commentText, setCommentText] = useState('')
   const [errorMessages, setErrorMessages] = useState({
     text: []

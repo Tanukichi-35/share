@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 import axios from 'axios'
 
-export const MessagesContext = createContext({});
-export const MessagesProvider = ({ children }) => {
+export const ShareMessagesContext = createContext({});
+export const ShareMessagesProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [messageDetails, setMessageDetails] = useState({
     userName: '',
@@ -142,5 +142,5 @@ export const MessagesProvider = ({ children }) => {
       });
   }
 
-  return <MessagesContext.Provider value={{messages, loadMessages, postMessage, deleteMessage, messageDetails, setMessageDetails, loadMessageDetails, postComment, addGood, removeGood}}>{children}</MessagesContext.Provider>;
+  return <ShareMessagesContext.Provider value={{messages, loadMessages, postMessage, deleteMessage, messageDetails, setMessageDetails, loadMessageDetails, postComment, addGood, removeGood}}>{children}</ShareMessagesContext.Provider>;
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext, memo } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { MessagesContext } from '../../Providers/MessagesProvider';
+import { ShareMessagesContext } from '../../Providers/ShareMessagesProvider';
 import '../css/home.css'
 import SideMenu from './SideMenu';
 // import axios from 'axios'
@@ -10,7 +10,7 @@ import crossImg from '../img/cross.png';
 import detailImg from '../img/detail.png';
 
 const Home = memo(() => {
-  const { messages, loadMessages, deleteMessage, addGood, removeGood } = useContext(MessagesContext);
+  const { messages, loadMessages, deleteMessage, addGood, removeGood } = useContext(ShareMessagesContext);
   const nav = useNavigate();
 
   // goodボタン

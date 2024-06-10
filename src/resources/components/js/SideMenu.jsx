@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext, memo } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { MessagesContext } from '../../Providers/MessagesProvider';
+import { ShareMessagesContext } from '../../Providers/ShareMessagesProvider';
 import { logout } from '../../Providers/AuthProvider';
 import '../css/sideMenu.css'
 import axios from 'axios'
@@ -10,7 +10,7 @@ import logoutImg from '../img/logout.png';
 import ErrorMessage from './ErrorMessage';
 
 const SideMenu = memo(() => {
-  const {postMessage} = useContext(MessagesContext);
+  const {postMessage} = useContext(ShareMessagesContext);
   const [shareText, setShareText] = useState('')
   const [errorMessages, setErrorMessages] = useState({
     text: []
