@@ -13,11 +13,11 @@ export const ShareMessagesProvider = ({ children }) => {
   });
 
   // Home画面用のメッセージリストを取得
-  const loadMessages = (nav) => {
-    axios
+  const loadMessages = async(nav) => {
+    await axios
       .get("http://localhost/api/messageList")
       .then((response) => {
-        console.log(response.data.data);
+        console.log("loaded");
         const messageArray = [];
         response.data.data.map((data) => {
           messageArray.push({
@@ -34,6 +34,8 @@ export const ShareMessagesProvider = ({ children }) => {
         console.log(error);
         nav('/login');
       });
+    
+    // return Promise.resolve();
   }
 
   // メッセージの投稿
@@ -69,10 +71,11 @@ export const ShareMessagesProvider = ({ children }) => {
 
 
   // Comment画面用のメッセージ詳細を取得
-  const loadMessageDetails = (id) => {
-    axios
+  const loadMessageDetails = async(id) => {
+    await axios
       .get(`http://localhost/api/messageDetails/${id}`)
       .then((response) => {
+        console.log(response.data.data);
         const commentList = [];
         response.data.data.comments.map((comment) => {
           commentList.push({
@@ -92,6 +95,8 @@ export const ShareMessagesProvider = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
+    
+    // return Promise.resolve();
   }
   
   // コメントの投稿

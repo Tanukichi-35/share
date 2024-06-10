@@ -11,6 +11,7 @@ import ErrorMessage from './ErrorMessage';
 
 const Comment = memo(() => {
   const { messageDetails, loadMessageDetails, postComment, deleteMessage, addGood, removeGood } = useContext(ShareMessagesContext);
+  const [isLoaded, setIsLoaded] = useState(false)
   const [commentText, setCommentText] = useState('')
   const [errorMessages, setErrorMessages] = useState({
     text: []
@@ -57,44 +58,49 @@ const Comment = memo(() => {
   }
   
   // idからmessageを取得する
-  useEffect(() => loadMessageDetails(message_id), []);
+  useEffect(() => async function loadData() {
+    await loadMessageDetails(message_id);
+    setIsLoaded(true);
+  } , []);
 
   return (
     <>
-      <SideMenu/>
-      <div className='div__home'>
-        <h1 className='h1__home'>コメント</h1>
-        <div className='div__share'>
-          <div className="div__share-header">
-            <h2 className="h2__share-user">{messageDetails.userName}</h2>
-            <div className="div__menu-good">
-              <img className='img__good-menu menu-icon' src={messageDetails.isGood ? heartOnImg : heartImg} alt="" onClick={() => onClickGood(messageDetails.isGood, message_id)} />
-              <p className="p__good-count">{messageDetails.goodCount}</p>
+      <SideMenu />
+      {isLoaded &&
+        <div className='div__home'>
+          <h1 className='h1__home'>コメント</h1>
+          <div className='div__share'>
+            <div className="div__share-header">
+              <h2 className="h2__share-user">{messageDetails.userName}</h2>
+              <div className="div__menu-good">
+                <img className='img__good-menu menu-icon' src={messageDetails.isGood ? heartOnImg : heartImg} alt="" onClick={() => onClickGood(messageDetails.isGood, message_id)} />
+                <p className="p__good-count">{messageDetails.goodCount}</p>
+              </div>
+              <img className='img__delete-menu menu-icon' src={crossImg} alt="" onClick={() => onClickDelete(message_id)}></img>
             </div>
-            <img className='img__delete-menu menu-icon' src={crossImg} alt="" onClick={() => onClickDelete(message_id)}></img>
+            <p className="p__share-message">{messageDetails.text}</p>
           </div>
-          <p className="p__share-message">{messageDetails.text}</p>
+          <div className="div__comment-container">
+            <div className="div__share-comment">
+              <h3 className='h3__comment-title'>コメント</h3>
+                {messageDetails.comments.map((comment) => {
+                  return (
+                  <div key={comment.id} className="div__comment">
+                    <p className="p__comment-user">{comment.userName}</p>
+                    <p className="p__comment-text">{comment.text}</p>
+                  </div>
+                  )
+                })}
+            </div>
+            <div className="div__comment-form">
+              <textarea className='textarea__share-comment' name="commentText" id="" placeholder='他人がシェアした内容にコメントしてみよう' onChange={onChangeCommentText} value={commentText}>
+              </textarea>
+              <ErrorMessage isError={errorMessages.text != null} messages={errorMessages.text} />
+              <button className='button__share-comment submit-button' type="button" onClick={() => onClickComment(message_id)}>コメントする</button>
+            </div>
+          </div>
         </div>
-        <div className="div__comment-container">
-          <div className="div__share-comment">
-            <h3 className='h3__comment-title'>コメント</h3>
-              {messageDetails.comments.map((comment) => {
-                return (
-                <div key={comment.id} className="div__comment">
-                  <p className="p__comment-user">{comment.userName}</p>
-                  <p className="p__comment-text">{comment.text}</p>
-                </div>
-                )
-              })}
-          </div>
-          <div className="div__comment-form">
-            <textarea className='textarea__share-comment' name="commentText" id="" placeholder='他人がシェアした内容にコメントしてみよう' onChange={onChangeCommentText} value={commentText}>
-            </textarea>
-            <ErrorMessage isError={errorMessages.text != null} messages={errorMessages.text} />
-            <button className='button__share-comment submit-button' type="button" onClick={() => onClickComment(message_id)}>コメントする</button>
-          </div>
-        </div>
-      </div>
+      }
     </>
   )
 });

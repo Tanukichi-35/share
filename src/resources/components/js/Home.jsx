@@ -11,6 +11,7 @@ import detailImg from '../img/detail.png';
 
 const Home = memo(() => {
   const { messages, loadMessages, deleteMessage, addGood, removeGood } = useContext(ShareMessagesContext);
+  const [isLoaded, setIsLoaded] = useState(false)
   const nav = useNavigate();
 
   // goodボタン
@@ -28,14 +29,17 @@ const Home = memo(() => {
   }
 
   // messageを取得
-  useEffect(() => loadMessages(nav),[]);
+  useEffect(() => async function loadData() {
+    await loadMessages(nav);
+    setIsLoaded(true);
+  } , []);
   
   return (
     <>
       <SideMenu/>
       <div className='div__home'>
         <h1 className='h1__home'>ホーム</h1>
-        {messages.map((message) => {
+        {isLoaded && messages.map((message) => {
           return (
             <div key={message.id} className='div__share'>
               <div className="div__share-header">
