@@ -54,3 +54,17 @@
     }
   }
 }
+
+@media screen and (max-width : 768px) {
+  .div__main {
+    display: grid;
+    grid-template-rows: 60px auto auto;
+    grid-template-columns: auto;
+
+    .div__home {
+      grid-row: 3 / 4;
+      grid-column: 1 / 2;
+      margin: 0;
+    }
+  }
+}

@@ -31,15 +31,17 @@ const SideMenu = memo(() => {
   return (
     <div className='div__side-menu'>
       <img className='img__logo' src={logoImg} alt="" />
-        <div className='div__home-menu side-menu-item'>
+      <div className="div__menu-container">
+        <Link to="/" className='link__home-menu side-menu-item' >
+          {/* <div className='div__home-menu side-menu-item'> */}
           <img className='img__home-menu side-menu-icon' src={homeImg} alt="" />
-          <Link to="/" className='link__home header-menu' >
             <p className='p__home-menu side-menu-text'>ホーム</p>
-          </Link>
+          {/* </div> */}
+        </Link>
+        <div className='div__logout-menu side-menu-item' onClick={onClickLogout}>
+            <img className='img__logout-menu side-menu-icon' src={logoutImg} alt="" />
+            <p className='p__logout-menu side-menu-text'>ログアウト</p>
         </div>
-      <div className='div__logout-menu side-menu-item'>
-          <img className='img__logout-menu side-menu-icon' src={logoutImg} alt="" />
-          <p className='p__logout-menu side-menu-text' onClick={onClickLogout}>ログアウト</p>
       </div>
       <div className="div__share-form">
         <p className='p__share-form-header'>シェア</p>
