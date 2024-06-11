@@ -80,7 +80,7 @@ const Comment = memo(() => {
                 <h3 className='h3__comment-title'>コメント</h3>
                   {messageDetails.comments.map((comment) => {
                     return (
-                    <div key={comment.id} className="div__comment">
+                    <div key={comment.id} className="div__comment-content">
                       <p className={`p__comment-user ${comment.isOwner ? "owner" : ""}`}>{comment.userName}</p>
                       <p className={`p__comment-text ${comment.isOwner ? "owner" : ""}`}>{comment.text}</p>
                     </div>
