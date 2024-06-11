@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// 会員登録
 export const register = async(name, email, password, nav) => {
   const errors = await axios
     .post("http://localhost/api/register", {
@@ -13,7 +14,6 @@ export const register = async(name, email, password, nav) => {
       nav('/login');
     })
     .catch((error) => {
-      console.log(email, password);
       console.log(error);
       return error.response.data.errors;
     });
@@ -21,22 +21,20 @@ export const register = async(name, email, password, nav) => {
   return errors;
 }
 
+// ログイン
 export const login = async(email, password, nav) => {
   const errors = await axios
     .get('http://localhost/sanctum/csrf-cookie').then( async() => {
-      // console.log(response);
       const errs = await axios
         .post("http://localhost/api/login", {
           email: email,
           password: password,
         })
         .then((response) => {
-          console.log(email, password);
           console.log(response);
           nav('/');
         })
         .catch((error) => {
-          console.log(email, password);
           console.log(error);
           return error.response.data.errors;
         });
@@ -50,6 +48,7 @@ export const login = async(email, password, nav) => {
   return errors;
 }
 
+// ログアウト
 export const logout = (nav) => {
   axios
     .post("http://localhost/api/logout")

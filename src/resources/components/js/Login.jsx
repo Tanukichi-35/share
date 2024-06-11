@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react'
+import { useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../Providers/AuthProvider';
 import '../css/login.css'
@@ -25,7 +25,6 @@ const Login = memo(() => {
   const onClickLogin = () => {
     login(email, password, nav)
       .then((errors) => {
-        console.log(errors);
         if (errors != null) {
           setErrorMessages(errors);
         }

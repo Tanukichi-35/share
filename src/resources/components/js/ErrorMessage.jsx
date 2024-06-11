@@ -3,7 +3,6 @@ import '../css/ErrorMessage.css'
 
 const ErrorMessage = memo(({ isError, messages }) => {
   if (isError) {
-    // console.log(messages);
     return (
       <div className='div__error-message error-message'>
         <ul>

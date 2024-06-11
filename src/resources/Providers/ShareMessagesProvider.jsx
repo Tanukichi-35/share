@@ -3,22 +3,15 @@ import axios from 'axios'
 
 export const ShareMessagesContext = createContext({});
 export const ShareMessagesProvider = ({ children }) => {
-  const [messages, setMessages] = useState([]);
-  const [messageDetails, setMessageDetails] = useState({
-    userName: '',
-    text: '',
-    goodCount: 0,
-    isGood: false,
-    isOwner: false,
-    comments: [],
-  });
+  const [messages, setMessages] = useState();
+  const [messageDetails, setMessageDetails] = useState();
 
   // Home画面用のメッセージリストを取得
   const loadMessages = async(nav) => {
     await axios
       .get("http://localhost/api/messageList")
       .then((response) => {
-        console.log("loaded");
+        console.log(response);
         const messageArray = [];
         response.data.data.map((data) => {
           messageArray.push({
@@ -36,12 +29,10 @@ export const ShareMessagesProvider = ({ children }) => {
         console.log(error);
         nav('/login');
       });
-    
-    // return Promise.resolve();
   }
 
   // メッセージの投稿
-  const postMessage = async(text) => {
+  const postMessage = async(text, nav) => {
     const errors = await axios
       .post("http://localhost/api/message", {
         text: text,
@@ -49,6 +40,7 @@ export const ShareMessagesProvider = ({ children }) => {
       .then((response) => {
         console.log(response);
         loadMessages();
+        nav('/');
       })
       .catch((error) => {
         console.log(error);
@@ -59,12 +51,12 @@ export const ShareMessagesProvider = ({ children }) => {
   }
 
   // メッセージを削除
-  const deleteMessage = (id, reload) => {
+  const deleteMessage = (id, redirect) => {
     axios
       .delete(`http://localhost/api/message/${id}`)
       .then((response) => {
         console.log(response);
-        reload();
+        redirect();
       })
       .catch((error) => {
         console.log(error);
@@ -77,7 +69,7 @@ export const ShareMessagesProvider = ({ children }) => {
     await axios
       .get(`http://localhost/api/messageDetails/${id}`)
       .then((response) => {
-        console.log(response.data.data);
+        console.log(response);
         const commentList = [];
         response.data.data.comments.map((comment) => {
           commentList.push({
@@ -123,14 +115,14 @@ export const ShareMessagesProvider = ({ children }) => {
  }
   
   // いいねの追加
-  const addGood = (message_id, reload) => {
+  const addGood = (message_id, redirect) => {
     axios
       .post("http://localhost/api/good", {
         message_id: message_id,
       })
       .then((response) => {
         console.log(response);
-        reload();
+        redirect();
         return response;
       })
       .catch((error) => {
@@ -139,12 +131,12 @@ export const ShareMessagesProvider = ({ children }) => {
   }
   
   // いいねの削除
-  const removeGood = (message_id, reload) => {
+  const removeGood = (message_id, redirect) => {
     axios
       .delete(`http://localhost/api/good/${message_id}`)
       .then((response) => {
         console.log(response);
-        reload();
+        redirect();
       })
       .catch((error) => {
         console.log(error);

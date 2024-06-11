@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react'
+import { useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../Providers/AuthProvider';
 import '../css/register.css'

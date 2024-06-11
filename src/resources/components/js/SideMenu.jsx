@@ -1,9 +1,8 @@
-import { useEffect, useState, useContext, memo } from 'react'
+import { useState, useContext, memo } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { ShareMessagesContext } from '../../Providers/ShareMessagesProvider';
 import { logout } from '../../Providers/AuthProvider';
 import '../css/sideMenu.css'
-import axios from 'axios'
 import logoImg from '../img/logo.png';
 import homeImg from '../img/home.png';
 import logoutImg from '../img/logout.png';
@@ -26,7 +25,7 @@ const SideMenu = memo(() => {
   }
 
   const onClickShare = () => {
-    postMessage(shareText)
+    postMessage(shareText, nav)
       .then((errors) => {
         if (errors != null) {
           setErrorMessages(errors);
@@ -43,10 +42,8 @@ const SideMenu = memo(() => {
       <img className='img__logo' src={logoImg} alt="" />
       <div className="div__menu-container">
         <Link to="/" className='link__home-menu side-menu-item' >
-          {/* <div className='div__home-menu side-menu-item'> */}
           <img className='img__home-menu side-menu-icon' src={homeImg} alt="" />
             <p className='p__home-menu side-menu-text'>ホーム</p>
-          {/* </div> */}
         </Link>
         <div className='div__logout-menu side-menu-item' onClick={onClickLogout}>
             <img className='img__logout-menu side-menu-icon' src={logoutImg} alt="" />

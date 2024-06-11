@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react'
+import { memo } from 'react'
 import { Link } from "react-router-dom";
 import '../css/header.css'
 import logoImg from '../img/logo.png';

@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ShareMessagesContext } from '../../Providers/ShareMessagesProvider';
 import '../css/home.css'
 import SideMenu from './SideMenu';
-// import axios from 'axios'
 import heartImg from '../img/heart.png';
 import heartOnImg from '../img/heart_on.png';
 import crossImg from '../img/cross.png';
@@ -14,7 +13,7 @@ const Home = memo(() => {
   const [isLoaded, setIsLoaded] = useState(false)
   const nav = useNavigate();
 
-  // goodボタン
+  // いいね！
   const onClickGood = (isGood, id) => {
     if (isGood) {
       removeGood(id, loadMessages);
@@ -23,12 +22,12 @@ const Home = memo(() => {
     }
   }
 
-  // messageの削除
+  // メッセージの削除
   const onClickDelete = (id) => {
     deleteMessage(id, loadMessages);
   }
 
-  // messageを取得
+  // メッセージリストを取得する
   useEffect(() => async function loadData() {
     await loadMessages(nav);
     setIsLoaded(true);
