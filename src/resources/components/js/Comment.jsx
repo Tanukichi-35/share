@@ -71,14 +71,15 @@ const Comment = memo(() => {
           <h1 className='h1__home'>コメント</h1>
           <div className='div__share'>
             <div className="div__share-header">
-              <h2 className="h2__share-user">{messageDetails.userName}</h2>
+              <h2 className={`h2__share-user ${messageDetails.isOwner ? "owner" : ""}`}>{messageDetails.userName}</h2>
               <div className="div__menu-good">
                 <img className='img__good-menu menu-icon' src={messageDetails.isGood ? heartOnImg : heartImg} alt="" onClick={() => onClickGood(messageDetails.isGood, message_id)} />
                 <p className="p__good-count">{messageDetails.goodCount}</p>
               </div>
-              <img className='img__delete-menu menu-icon' src={crossImg} alt="" onClick={() => onClickDelete(message_id)}></img>
+              {messageDetails.isOwner && <img className='img__delete-menu menu-icon' src={crossImg} alt="" onClick={() => onClickDelete(message.id)}></img>}
+              {/* <img className='img__delete-menu menu-icon' src={crossImg} alt="" onClick={() => onClickDelete(message_id)}></img> */}
             </div>
-            <p className="p__share-message">{messageDetails.text}</p>
+            <p className={`p__share-message ${messageDetails.isOwner ? "owner" : ""}`}>{messageDetails.text}</p>
           </div>
           <div className="div__comment-container">
             <div className="div__share-comment">
@@ -86,8 +87,8 @@ const Comment = memo(() => {
                 {messageDetails.comments.map((comment) => {
                   return (
                   <div key={comment.id} className="div__comment">
-                    <p className="p__comment-user">{comment.userName}</p>
-                    <p className="p__comment-text">{comment.text}</p>
+                    <p className={`p__comment-user ${comment.isOwner ? "owner" : ""}`}>{comment.userName}</p>
+                    <p className={`p__comment-text ${comment.isOwner ? "owner" : ""}`}>{comment.text}</p>
                   </div>
                   )
                 })}
@@ -101,6 +102,14 @@ const Comment = memo(() => {
           </div>
         </div>
       }
+      
+      <style>
+        {`
+          .owner {
+            color: #fc8;
+          }
+        `}
+      </style>
     </>
   )
 });

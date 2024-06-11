@@ -118,6 +118,7 @@ class MessageController extends Controller
                     'user' => $item->user,
                     'goods' => $item->goods,
                     'good_flag' => $item->goods->where('user_id', Auth::id())->isNotEmpty(),
+                    'owner_flag' => $item->user->id === Auth::id(),
                 ];
             }
             return response()->json([
@@ -145,6 +146,7 @@ class MessageController extends Controller
                     $comments[] = [
                         'comment' => $comment,
                         'user' => $comment->user,
+                        'owner_flag' => $comment->user->id === Auth::id(),
                     ];
                 }
             }
@@ -153,6 +155,7 @@ class MessageController extends Controller
                 'user' => $message->user,
                 'goods' => $message->goods,
                 'good_flag' => $message->goods->where('user_id', Auth::id())->isNotEmpty(),
+                'owner_flag' => $message->user->id === Auth::id(),
                 'comments' => $comments,
             ];
             return response()->json([

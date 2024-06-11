@@ -9,6 +9,7 @@ export const ShareMessagesProvider = ({ children }) => {
     text: '',
     goodCount: 0,
     isGood: false,
+    isOwner: false,
     comments: [],
   });
 
@@ -26,6 +27,7 @@ export const ShareMessagesProvider = ({ children }) => {
             text: data.message.text,
             goodCount: data.goods.length,
             isGood: data.good_flag,
+            isOwner: data.owner_flag,
           });
         });
         setMessages(messageArray);
@@ -82,6 +84,7 @@ export const ShareMessagesProvider = ({ children }) => {
             id: comment.comment.id,
             userName: comment.user.name,
             text: comment.comment.text,
+            isOwner: comment.owner_flag,
           });
         });
         setMessageDetails({
@@ -89,6 +92,7 @@ export const ShareMessagesProvider = ({ children }) => {
           text: response.data.data.message.text,
           goodCount: response.data.data.goods.length,
           isGood: response.data.data.good_flag,
+          isOwner: response.data.data.owner_flag,
           comments: commentList,
         });
       })
