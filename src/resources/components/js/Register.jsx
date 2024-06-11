@@ -46,7 +46,7 @@ const Register = memo(() => {
 
   const onKeyDownSubmit = (event) => {
     if (event.key === 'Enter') {
-      onClickLogin();
+      onClickRegister();
     }
   }
 
