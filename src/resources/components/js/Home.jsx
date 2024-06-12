@@ -29,8 +29,10 @@ const Home = memo(() => {
 
   // メッセージリストを取得する
   useEffect(() => async function loadData() {
-    await loadMessages(nav);
-    setIsLoaded(true);
+    const isError = await loadMessages(nav);
+    if(!isError){
+      setIsLoaded(true);
+    }
   } , []);
   
   return (

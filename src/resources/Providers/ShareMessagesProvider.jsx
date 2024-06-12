@@ -8,7 +8,7 @@ export const ShareMessagesProvider = ({ children }) => {
 
   // Home画面用のメッセージリストを取得
   const loadMessages = async(nav) => {
-    await axios
+    const isError = await axios
       .get("http://localhost/api/messageList")
       .then((response) => {
         console.log(response);
@@ -24,11 +24,14 @@ export const ShareMessagesProvider = ({ children }) => {
           });
         });
         setMessages(messageArray);
+        return false;
       })
       .catch((error) => {
         console.log(error);
-        nav('/login');
+        return true;
       });
+
+    return isError;
   }
 
   // メッセージの投稿
