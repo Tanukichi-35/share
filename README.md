@@ -80,7 +80,10 @@ Twitter風SNSアプリ
    `npm run dev`
 
 ## その他
-   - テストアカウント
-      メールアドレス：test@user.com
-      password：password
- 
+- テストアカウント
+   メールアドレス：test@user.com
+   password：password
+- 追加仕様
+   - 異なるユーザーの投稿メッセージは削除不可
+   - 自分の投稿したメッセージとコメントは文字色を変更して表示
+   - いいねを行った場合アイコンの色を変更
