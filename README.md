@@ -39,6 +39,7 @@ Twitter風SNSアプリ
 - fortify 1.19.1
 - react 18.3.1
 - vite 4.5.3
+- node 22.1.0
 
 ## テーブル定義
 ![テーブル定義](./img/テーブル定義.png)
@@ -76,7 +77,6 @@ Twitter風SNSアプリ
 8. ライブラリのインストール（react）
    `npm install`
 9. ビルドして実行
-   `npm build`
    `npm run dev`
 
 ## その他
